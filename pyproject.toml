@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "testjunputhon"
+version = "0.1.0"
+description = "Effective Mobile"
+authors = ["Effective Mobile"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[tool.poetry.group.mypy.dependencies]
+black = "^24.10.0"
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+pre-commit = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
