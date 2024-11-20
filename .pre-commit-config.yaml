@@ -23,6 +23,7 @@ repos:
         language: python
         types: [ python ]
         require_serial: true
+        exclude: ^tests/
 
       - id: pytest
         name: pytest

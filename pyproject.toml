@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Effective Mobile"
 authors = ["Effective Mobile"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -26,7 +27,8 @@ mypy = "^1.13.0"
 pythonpath = [".", "../../src"]
 testpaths = ["tests"]
 markers = [
-    "all: marks tests for test (deselect with '-m \"not all\"')"
+    "all: marks tests for test (deselect with '-m \"not all\"')",
+    "book: marks tests for test (deselect with '-m \"not book\"')"
 ]
 
 addopts = "--strict-markers"

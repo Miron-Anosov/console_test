@@ -33,10 +33,6 @@ class ValidString(abc.ABC):
             logger.debug(self.INCORRECT_VALUE_MSG)
             raise InvalidInputBookData(self.INCORRECT_VALUE_MSG)
 
-        if not value:
-            logger.debug(self.NOT_VALUE_MSG)
-            raise InvalidInputBookData(self.NOT_VALUE_MSG)
-
         if len(value) < self.MIN_LENGTH or len(value) > self.MAX_LENGTH:
             raise InvalidInputBookData(self.INCORRECT_LENGTH_MSG)
 
@@ -46,7 +42,7 @@ class ValidString(abc.ABC):
 class ValidTitle(ValidString):
     """Title validation descriptor."""
 
-    MAX_LENGTH = 30
+    MAX_LENGTH = 300
     MIN_LENGTH = 3
     NOT_VALUE_MSG = "Значение должно быть заполнено"
     INCORRECT_VALUE_MSG = "Не корректное значение."
@@ -72,11 +68,12 @@ class ValidAuthor(ValidString):
 class ValidYear:
     """Year descriptor."""
 
-    MIN_INTEGERS = 1
-    MAX_INTEGERS = 4
     MAX_YEAR = datetime.now().year
-    INCORRECT_YEAR_MSG = "Значение должно быть положительнымю"
+    INCORRECT_YEAR_MSG = "Значение должно быть положительным"
     INCORRECT_VALUE_MSG = "Значение должны быть числом."
+    INCORRECT_YEAR_FUTURE_MSG = (
+        "Дата не может иметь " "значение превышающее текущее."
+    )
 
     def __get__(self, instance, owner) -> str:
         """Return year."""
@@ -86,14 +83,15 @@ class ValidYear:
         """Validate year."""
         try:
             value = int(value)
-        except InvalidInputBookData:
+        except ValueError:
             logger.debug(self.INCORRECT_VALUE_MSG)
             raise InvalidInputBookData(self.INCORRECT_VALUE_MSG)
 
-        value = str(value)
+        if value > self.MAX_YEAR:
+            logger.debug(self.INCORRECT_YEAR_FUTURE_MSG)
+            raise InvalidInputBookData(self.INCORRECT_YEAR_FUTURE_MSG)
 
-        if len(value) < self.MIN_INTEGERS or len(value) > self.MAX_INTEGERS:
-            raise InvalidInputBookData(self.INCORRECT_YEAR_MSG)
+        value = str(value)
 
         self.value = value
 
@@ -127,17 +125,14 @@ class Book:
     def __repr__(self):
         """Return book info."""
         return (
-            f"<{self.__class__.__name__} "
-            f"{self._id} {self.title} "
-            f"{self.author} {self.year} "
-            f"{self.status}>"
+            f"<{self.__class__.__name__}: ("
+            f"id={self._id}, title={self.title}, "
+            f"author={self.author}, year={self.year})> "
         )
 
     def to_json(self):
         """Return book Json."""
-        return json.dumps(
-            self, default=lambda o: o.__dict__, sort_keys=True, indent=4
-        )
+        return json.dumps(self.to_dict(), ensure_ascii=False, indent=4)
 
     def to_dict(self):
         """Return book Dict."""
@@ -148,8 +143,3 @@ class Book:
             year=self.year,
             status=self.status,
         )
-
-
-if __name__ == "__main__":
-    book = Book(author="Пушкин", year="1990", title="Собрание")
-    print(book)
