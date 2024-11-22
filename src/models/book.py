@@ -44,11 +44,10 @@ class ValidTitle(ValidString):
 
     MAX_LENGTH = 300
     MIN_LENGTH = 3
-    NOT_VALUE_MSG = "Значение должно быть заполнено"
-    INCORRECT_VALUE_MSG = "Не корректное значение."
+    NOT_VALUE_MSG = "Title is cant be empty."
+    INCORRECT_VALUE_MSG = "Invalid title."
     INCORRECT_LENGTH_MSG = (
-        f"Название должно содержать не менее {MIN_LENGTH}"
-        f" и не более {MAX_LENGTH} символов."
+        f"Title length min: {MIN_LENGTH}, max: {MAX_LENGTH}."
     )
 
 
@@ -57,11 +56,10 @@ class ValidAuthor(ValidString):
 
     MAX_LENGTH = 30
     MIN_LENGTH = 3
-    NOT_VALUE_MSG = "Значение должно быть заполнено."
-    INCORRECT_VALUE_MSG = "Не корректное значение."
+    NOT_VALUE_MSG = "Author cant be empty."
+    INCORRECT_VALUE_MSG = "invalid Author value."
     INCORRECT_LENGTH_MSG = (
-        f"ИМЯ автора должно содержать не менее {MIN_LENGTH}"
-        f" и не более {MAX_LENGTH} символов включая пробелы."
+        f"Author length min: {MIN_LENGTH}, max: {MAX_LENGTH}"
     )
 
 
@@ -69,11 +67,9 @@ class ValidYear:
     """Year descriptor."""
 
     MAX_YEAR = datetime.now().year
-    INCORRECT_YEAR_MSG = "Значение должно быть положительным"
-    INCORRECT_VALUE_MSG = "Значение должны быть числом."
-    INCORRECT_YEAR_FUTURE_MSG = (
-        "Дата не может иметь " "значение превышающее текущее."
-    )
+    INCORRECT_YEAR_MSG = "Value can be above zero year."
+    INCORRECT_VALUE_MSG = "Year can't be integers."
+    INCORRECT_YEAR_FUTURE_MSG = "Cannot exceed current year."
 
     def __get__(self, instance, owner) -> str:
         """Return year."""
@@ -100,7 +96,7 @@ class Book:
     """Book model."""
 
     _id_counter = 0
-    DEFAULT_STATUS = "В наличии."
+    DEFAULT_STATUS = "в наличии."
 
     title = ValidTitle()
     author = ValidAuthor()
