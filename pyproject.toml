@@ -34,7 +34,10 @@ markers = [
 addopts = "--strict-markers"
 
 [tool.mypy]
+python_version = 3.12
+module_paths = ["src"]
 ignore_missing_imports = true
+mypy_path = ["src"]
 packages = ["src"]
 exclude = '''
    (?x)
@@ -65,3 +68,7 @@ source = ["src"]
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "src.__main__:run"
+
