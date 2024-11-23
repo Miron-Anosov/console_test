@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Collection",
+        "author": "Pushkin",
+        "year": "1990",
+        "status": "в наличии."
+    },
+    {
+        "id": 2,
+        "title": "W&P",
+        "author": "Tolstoy",
+        "year": "1999",
+        "status": "в наличии."
+    },
+    {
+        "id": 3,
+        "title": "The Master and Margarita",
+        "author": "Mikhail Bulgakov",
+        "year": "1999",
+        "status": "выдана"
+    }
+]

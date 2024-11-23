@@ -95,21 +95,26 @@ class ValidYear:
 class Book:
     """Book model."""
 
-    _id_counter = 0
     DEFAULT_STATUS = "в наличии."
 
     title = ValidTitle()
     author = ValidAuthor()
     year = ValidYear()
 
-    def __init__(self, title: str, author: str, year: int | str):
+    def __init__(
+        self,
+        title: str,
+        author: str,
+        year: int | str,
+        status: str | None = None,
+        _id: str | int | None = None,
+    ):
         """Init new book."""
         self.title = title
         self.author = author
         self.year = year
-        self.status: str = self.DEFAULT_STATUS
-        self.__class__._id_counter += 1
-        self._id = self._id_counter
+        self.status: str = status if status else self.DEFAULT_STATUS
+        self._id = _id
 
     def __str__(self):
         """Return book info."""
