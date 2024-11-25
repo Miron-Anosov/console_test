@@ -108,15 +108,17 @@ class ConsoleOutput:
 
         _main_menu()
 
-        invite_msg = None
-        if invite_text_miss_button:
-            invite_msg = (
-                self._printer("Enter a value from the list above:")
-                .red()
-                .build_text()
-            )
+        # invite_msg = None
+        # if invite_text_miss_button:
+        #     invite_msg = (
+        #         self._printer("Enter a value from the list above:")
+        #         .red()
+        #         .build_text()
+        #     )
 
-        self._screen_footer(invite_text=invite_msg)
+        self._screen_footer(
+            # invite_text=invite_msg
+        )
 
     def _generate_menu_items(self) -> tuple:
         """Generate menu items for main menu."""
@@ -354,7 +356,6 @@ class ConsoleOutput:
 
     def back_menu_screen(
         self,
-        mgs: bool | None = None,
         call_screen: Callable | None = None,
     ) -> None:
         """Make the screen back menu text."""
@@ -363,15 +364,7 @@ class ConsoleOutput:
         def _back_menu():
             logger.debug("call back menu screen")
 
-            mgs_ = None
-            if mgs is not None:
-                mgs_ = (
-                    self._printer("Enter the value from the list above: ")
-                    .red()
-                    .build_text()
-                )
-
-            self._screen_footer(invite_text=mgs_, call_screen=call_screen)
+            self._screen_footer(call_screen=call_screen)
 
         _back_menu()
 

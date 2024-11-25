@@ -22,13 +22,17 @@ pytest = "^8.3.3"
 coverage = "^7.6.7"
 pytest-cov = "^6.0.0"
 mypy = "^1.13.0"
+pytest-mock = "^3.14.0"
 
 [tool.pytest.ini_options]
 pythonpath = [".", "../../src"]
 testpaths = ["tests"]
 markers = [
     "all: marks tests for test (deselect with '-m \"not all\"')",
-    "book: marks tests for test (deselect with '-m \"not book\"')"
+    "book: marks tests for test (deselect with '-m \"not book\"')",
+    "main: marks tests for test (deselect with '-m \"not main\"')",
+    "unit: marks tests for test (deselect with '-m \"not unit\"')",
+    "integration: marks tests for test (deselect with '-m \"not integration\"')",
 ]
 
 addopts = "--strict-markers"

@@ -10,6 +10,7 @@ from src.models.book import Book, InvalidInputBookData
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book() -> None:
     """Positive test init book."""
     book = Book(author="Author", title="Title", year="1990")
@@ -22,6 +23,7 @@ def test_init_book() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_author_incorrect() -> None:
     """Negative test init book with author."""
     with pytest.raises(InvalidInputBookData):
@@ -30,6 +32,7 @@ def test_init_book_with_author_incorrect() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_very_long_title() -> None:
     """Negative test init book with very long title."""
     title = "Title" * 61  # len max 300
@@ -39,6 +42,7 @@ def test_init_book_with_very_long_title() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_very_long_author_name() -> None:
     """Negative test init book with very long author name."""
     author = "Author" * 6  # len max 30
@@ -48,6 +52,7 @@ def test_init_book_with_very_long_author_name() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_future_year() -> None:
     """Negative test init book with future year."""
     year = datetime.now().year + 1
@@ -57,6 +62,7 @@ def test_init_book_with_future_year() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_invalid_year() -> None:
     """Negative test init book with invalid year."""
     year = "Одна тысяча девятьсот девяностый"
@@ -66,6 +72,7 @@ def test_init_book_with_invalid_year() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_title_incorrect() -> None:
     """Negative test init book with title."""
     with pytest.raises(ValueError):
@@ -74,6 +81,7 @@ def test_init_book_with_title_incorrect() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_invalid_val() -> None:
     """Negative test init book with invalid val."""
     with pytest.raises(InvalidInputBookData):
@@ -82,6 +90,7 @@ def test_init_book_with_invalid_val() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_year_too_many_integers() -> None:
     """Negative test init book with invalid val."""
     with pytest.raises(InvalidInputBookData):
@@ -90,6 +99,7 @@ def test_init_book_with_year_too_many_integers() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_with_invalid_year_is_empty() -> None:
     """Negative test init book with invalid val."""
     with pytest.raises(InvalidInputBookData):
@@ -98,6 +108,7 @@ def test_init_book_with_invalid_year_is_empty() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_init_book_without_init_param() -> None:
     """Negative test init book with title."""
     with pytest.raises(TypeError):
@@ -112,6 +123,7 @@ def test_init_book_without_init_param() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_book_to_json() -> None:
     """Negative test to_json method."""
     book = Book(author="Author", title="Title", year="1990")
@@ -121,6 +133,7 @@ def test_book_to_json() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_book_from_json() -> None:
     """Positive test from_json method."""
     book = Book(author="Author", title="Title", year="1990")
@@ -129,6 +142,7 @@ def test_book_from_json() -> None:
 
 @pytest.mark.all
 @pytest.mark.book
+@pytest.mark.unit
 def test_book_from_dict() -> None:
     """Positive test from_dict method."""
     book = Book(author="Author", title="Title", year="1990")

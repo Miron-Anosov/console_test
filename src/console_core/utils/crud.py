@@ -73,26 +73,22 @@ class BookCRUD:
 
     def find_book_by_part_info(self, look_for_data: str) -> list[str] | str:
         """Find book by part info."""
-        try:
-            books = self._read_books()
-            if not books:
-                return []
-            return [
-                Book(
-                    _id=book["id"],
-                    title=book["title"],
-                    author=book["author"],
-                    year=book["year"],
-                    status=book["status"],
-                ).__str__()
-                for book in books
-                if look_for_data.lower() in book["title"].lower()
-                or look_for_data.lower() in book["author"].lower()
-                or look_for_data.lower() in book["year"]
-            ]
-        except InvalidInputBookData as e:
-            logger.error(e)
-            return str(e)
+        books = self._read_books()
+        if not books:
+            return []
+        return [
+            Book(
+                _id=book["id"],
+                title=book["title"],
+                author=book["author"],
+                year=book["year"],
+                status=book["status"],
+            ).__str__()
+            for book in books
+            if look_for_data.lower() in book["title"].lower()
+            or look_for_data.lower() in book["author"].lower()
+            or look_for_data.lower() in book["year"]
+        ]
 
     def select_all_books(self) -> list[str]:
         """Select all books."""

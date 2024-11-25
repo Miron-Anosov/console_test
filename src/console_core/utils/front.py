@@ -27,25 +27,17 @@ class ConsoleFront:
         self._io = io_cls
         self._crud = crud
 
-    def main_menu(self, invite_text_miss_button: bool | None = None) -> int:
+    def main_menu(
+        self,
+    ) -> int:
         """Show main menu and get user input."""
         logger.debug("event main menu screener called.")
         while True:
             self._screener.main_menu_screen()
             cursor = self._io.menu_input()
-            try:
-                cursor = int(cursor)
-            except ValueError:
-                logger.debug(
-                    "event main menu screener called with wrong message."
-                )
-                self._screener.main_menu_screen(
-                    invite_text_miss_button=invite_text_miss_button
-                )
-            else:
-                return PointMenuPositions.GET_MENU_BY_KEY.get(
-                    str(cursor), PointMenuPositions.BACK_MENU_HELPER
-                )
+            return PointMenuPositions.GET_MENU_BY_KEY.get(
+                str(cursor), PointMenuPositions.BACK_MENU_HELPER
+            )
 
     def add_book(self) -> Callable:
         """Call controller to add a new book."""
@@ -76,10 +68,10 @@ class ConsoleFront:
         fail = None
         while True:
             self._screener.delete_book_by_id_screen(msg=fail)
-            book_id = self._io.book_by_id()
+            book_id: str = self._io.book_by_id()
             try:
-                book_id = int(book_id)
-                error = self._crud.delete_book_by_id(book_id=book_id)
+                book_id_int = int(book_id)
+                error = self._crud.delete_book_by_id(book_id=book_id_int)
 
                 if not error:
                     return self._screener.delete_book_successful
@@ -123,16 +115,9 @@ class ConsoleFront:
                 look_for_data=find_value
             )
 
-            if isinstance(books_or_str_err, list):
-                found_books = partial(
-                    self._screener.find_book_successful, books_or_str_err
-                )
-                return found_books
-            if isinstance(books_or_str_err, str):
-                result_action = partial(
-                    self._screener.delete_book_failed_screen, books_or_str_err
-                )
-                return result_action
+            return partial(
+                self._screener.find_book_successful, books_or_str_err
+            )
 
     def select_all_book(self) -> Callable:
         """Call controller to select all books."""
@@ -149,7 +134,7 @@ class ConsoleFront:
             self._screener.update_book_screen_id(msg_err=fail_id)
             book_id = self._io.book_by_id()
             try:
-                book_id = int(book_id)
+                book_id_int = int(book_id)
             except ValueError:
                 logger.debug(
                     "event update book ID screener called with wrong message."
@@ -157,8 +142,7 @@ class ConsoleFront:
                 fail_id = True
 
             else:
-
-                num_status = 0
+                num_status_int = 0
                 fail_status = None
                 not_break = True
                 while not_break:
@@ -167,9 +151,9 @@ class ConsoleFront:
                     )
                     num_status = self._io.menu_input()
                     try:
-                        num_status = int(num_status)
+                        num_status_int = int(num_status)
                         if (
-                            num_status
+                            num_status_int
                             not in PointMenuPositions.STATUS_POSITION_CHOICES
                         ):
                             raise ValueError()
@@ -186,11 +170,11 @@ class ConsoleFront:
                 else:
                     status = (
                         PointMenuPositions.STATUS_ACTIVE
-                        if num_status == PointMenuPositions.STATUS_ACTIVE
+                        if num_status_int == PointMenuPositions.STATUS_ACTIVE
                         else PointMenuPositions.STATUS_NOT_ACTIVE
                     )
                     error = self._crud.update_status_book(
-                        book_id=book_id, status=status
+                        book_id=book_id_int, status=status
                     )
                     if not error:
                         return self._screener.update_book_successful_screen

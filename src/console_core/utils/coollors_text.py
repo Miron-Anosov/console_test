@@ -4,9 +4,7 @@ COLORS = {
     "red": "\033[91m",
     "blue": "\033[94m",
     "yellow": "\033[93m",
-    "cyan": "\033[96m",
     "underline": "\033[4m",
-    "green": "\033[92m",
     "bright_green": "\033[32;1m",
     "reset": "\033[0m",
 }
@@ -39,16 +37,6 @@ class FormatterColorText:
     def yellow(self) -> "FormatterColorText":
         """Set yellow color."""
         self._color_code = COLORS["yellow"]
-        return self
-
-    def cyan(self) -> "FormatterColorText":
-        """Set cyan color."""
-        self._color_code = COLORS["cyan"]
-        return self
-
-    def green(self) -> "FormatterColorText":
-        """Set green color."""
-        self._color_code = COLORS["green"]
         return self
 
     def red(self) -> "FormatterColorText":
