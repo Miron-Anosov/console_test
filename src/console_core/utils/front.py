@@ -142,7 +142,7 @@ class ConsoleFront:
                 fail_id = True
 
             else:
-                num_status_int = 0
+                num_status = ""
                 fail_status = None
                 not_break = True
                 while not_break:
@@ -168,14 +168,15 @@ class ConsoleFront:
                         not_break = False
 
                 else:
-                    status = (
-                        PointMenuPositions.STATUS_ACTIVE
-                        if num_status_int == PointMenuPositions.STATUS_ACTIVE
-                        else PointMenuPositions.STATUS_NOT_ACTIVE
-                    )
-                    error = self._crud.update_status_book(
-                        book_id=book_id_int, status=status
-                    )
+                    try:
+                        status = PointMenuPositions.GET_STATUS.get(num_status)
+                    except KeyError:
+                        error = "Error switch status."
+                    else:
+                        error = self._crud.update_status_book(
+                            book_id=book_id_int, status=status
+                        )
+
                     if not error:
                         return self._screener.update_book_successful_screen
                     else:

@@ -44,3 +44,5 @@ class PointMenuPositions:
     STATUS_ACTIVE = "в наличии"
     STATUS_ACTIVE_NUM = 1
     STATUS_NOT_ACTIVE = "выдана"
+
+    GET_STATUS = {"1": STATUS_ACTIVE, "2": STATUS_NOT_ACTIVE}
